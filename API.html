@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <center>
+    <h1>
+      PickleTable
+    </h1>
+  </center>
+  <p>
+    This is the guide that describes how to use the PickleTable Python Module.
+    The master copy of this module can be found at <a href="https://github.com/aaronstanek/PickleTable">https://github.com/aaronstanek/PickleTable</a>
+    <br>
+    I hope that you are able to find this software useful. --Aaron Stanek
+  </p>
+  <h2>
+    About
+  </h2>
+  <p>
+    PickleTable is a Python Module whose purpose is to guarantee that data is being saved in a desirable and easily usable format.
+    In short, it provides an interface with Python's Pickle Module, and checks data format and datatype while saving.
+    The files generated and read by this module will always have the extension .pickletable (this is to make it harder to load malformatted data).
+    Each file is a collection of 2 dimensional tables. The width of each table must be fixed before any data can be written to the table.
+    The entries in each table are constrined to the types: int, float, string, and boolean. The file as a whole, as well as each
+    table can have a name and human readable description.
+  </p>
+  <h2>
+    API
+  </h2>
+  <p>
+    The module contains a class called PickleTable. The API for this module is built around specific methods in this class. Making function calls
+    to things in the module, but outside the API, may lead to undefined or undesirable behavior.
+    <br>
+    Each table and PickleTable has a name and a readme. Both are strings and can be set arbitrarily by the user (they have no predetermined purpose). When sending data to
+    a PickleTable you will have to keep track of the active table. You can only ever edit the active table. The active table
+    is set by the addTable method. (The newest table is always the active one). So, after you create a new table, you
+    cannot go back and edit a table that you created previously.
+    <br>
+    Listed below are the functions that comprise the PickleTable API. All are methods of a PickleTable object, so to use this module,
+    you must first create a new PickleTable object, then you must use the methods listed below to modify/query the PickleTable object.
+  </p>
+  <b>Saving and Loading</b>
+  <table border="3px">
+    <tr>
+      <td width="200px">
+        toFile(filename)
+      </td>
+      <td>
+        This saves a PickleTable object to a file.
+        <br>
+        The filename specifies where to save the object. This argument must be an string.
+        <br>
+        The filename must end in ".pickletable"
+      </td>
+    </tr>
+    <tr>
+      <td>
+        fromFile(filename)
+      </td>
+      <td>
+        This loads a PickleTable object from a file.
+        <br>
+        The filename specifies where to get the object. This argument must be an string.
+        <br>
+        The filename must end in ".pickletable"
+        <br>
+        Note that this operation will overwrite any information that is presently stored in the PickleTable.
+      </td>
+    </tr>
+  </table>
+  <br>
+  <b>PickleTable level operations</b>
+  <table border="3px">
+    <tr>
+      <td width="200px">
+        clear()
+      </td>
+      <td>
+        This method will reset a PickleTable. The name, readme are set to the empty string, and all tables are dropped.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        setName(name)
+      </td>
+      <td>
+        This method will set the name for a file. (Note: this is not the filename, this is a piece of information stored in the file called "name")
+        <br>
+        The name argument must be a string.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        setReadme(readme)
+      </td>
+      <td>
+        This method will set the name for a file.
+        <br>
+        The readme argument must be a string.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getName()
+      </td>
+      <td>
+        This returns the value of the name property of a PickleTable.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getReadme()
+      </td>
+      <td>
+        This returns the value of the readme property of a PickleTable.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getTableCount()
+      </td>
+      <td>
+        This returns the number of tables stored in a PickleTable.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        addTable()
+      </td>
+      <td>
+        This adds a new table to a PickleTable. This new table is then set as the active table.
+      </td>
+    </tr>
+  </table>
+  <br>
+  <b>Table level operations</b>
+  <table border="3px">
+    <tr>
+      <td width="200px">
+        setTableName(name)
+      </td>
+      <td>
+        This will set the name of the active table.
+        <br>
+        The name argument must be a string.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        setTableReadme(readme)
+      </td>
+      <td>
+        This will set the readme of the active table.
+        <br>
+        The readme argument must be a string.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        setTableWidth(width)
+      </td>
+      <td>
+        This will set the number of columns in the active table.
+        <br>
+        It is only possible to use this function if the active table has zero rows. If the table has a nonzero number of rows then an exception will be thrown. You may use getTableRowCount to determine the number of rows in a table, or clear to empty everything.
+        <br>
+        The width argument must be a int.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getTableName(index)
+      </td>
+      <td>
+        This will return the name of a particular table in a PickleTable.
+        <br>
+        The index argument specifies which table you would like to know about, and must be an int.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getTableReadme(index)
+      </td>
+      <td>
+        This will return the readme of a particular table in a PickleTable.
+        <br>
+        The index argument specifies which table you would like to know about, and must be an int.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getTableWidth(index)
+      </td>
+      <td>
+        This will return the width of a particular table in a PickleTable.
+        <br>
+        The index argument specifies which table you would like to know about, and must be an int.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        getTableRowCount(index)
+      </td>
+      <td>
+        This will return the number of rows in a particular table in a PickleTable.
+        <br>
+        The index argument specifies which table you would like to know about, and must be an int.
+      </td>
+    </tr>
+  </table>
+  <br>
+  <b>Row level operations</b>
+  <table border="3px">
+    <tr>
+      <td width="200px">
+        add(row)
+      </td>
+      <td>
+        This will append a row of data to the active table. Row must be a list and must have the correct number of elements.
+        The correct number of elements is determined by the active table's width, which must be set before any rows are added.
+        If you try to add a row before the width has been set, then an exception will be thrown. The elements of
+        the row argument may only be int, float, str, or bool. The type will be check before the information is added to the table.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        get(tindex,rnum)
+      </td>
+      <td>
+        This will return a row of data. tindex is the table index; it specifies from which table you would like information.
+        rnum specifies which row in the table you would like.
+        <br>
+        Both the tindex and rnum arguments must be int.
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
