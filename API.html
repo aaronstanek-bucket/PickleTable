@@ -30,6 +30,13 @@
     API
   </h2>
   <p>
+    The module contains a function called getVersion(). This function returns a dictionary with the version of PickleTable and of the most recent version
+    of Python that has been tested for compatibility.
+    <br>
+    getVersion()["Python"] will return a string with the Python version
+    <br>
+    getVersion()["PickleTable"] will return a string with the PickleTable version
+    <br><br>
     The module contains a class called PickleTable. The API for this module is built around specific methods in this class. Making function calls
     to things in the module, but outside the API, may lead to undefined or undesirable behavior.
     <br>
@@ -236,5 +243,59 @@
       </td>
     </tr>
   </table>
+  <h2>
+    Examples
+  </h2>
+  <b>
+    Writing a file
+  </b>
+  <br>
+  <p>
+    import PickleTable<br>
+    f=PickleTable.PickleTable()<br>
+    f.setName("My PickleTable")<br>
+    f.setReadme("This is an example description")<br>
+    f.addTable()<br>
+    f.setTableName("Table 1")<br>
+    f.setTableReadme("This has people's names, and ages")<br>
+    f.setTableWidth(3)<br>
+    f.add(["John","Smith",47])<br>
+    f.add(["Mary","Green",78])<br>
+    f.add(["Timmy","Kid",6])<br>
+    f.addTable()<br>
+    f.setTableName("Trees")<br>
+    f.setTableReadme("A list of tree names")<br>
+    f.add(["Oak"])<br>
+    f.add(["Elm"])<br>
+    f.add(["Redwood"])<br>
+    f.add(["Pine"])<br>
+    f.toFile("myFile.pickletable")<br>
+  </p>
+  <br>
+  <b>
+    Reading a file
+  </b>
+  <br>
+  <p>
+    import PickleTable<br>
+    f=PickleTable.PickleTable<br>
+    f.fromFile("myFile.pickletable")<br>
+    tableCount=f.getTableCount()<br>
+    rowCount=f.getTableRowCount(0)<br>
+    someRowOfInformation=g.get(1,44)<br>
+  </p>
+  <br>
+  <b>
+    Overloaded Square Brackets
+  </b>
+  <br>
+  <p>
+    import PickleTable<br>
+    f=PickleTable.PickleTable()<br>
+    #the following two lines are equivilent<br>
+    w=f.get(x,y)<br>
+    w=f[x][y]<br>
+    #this may make it easier to get information from a PickleTable<br>
+  </p>
 </body>
 </html>
